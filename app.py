@@ -168,5 +168,9 @@ def main() -> None:
         print("🚨 Soundness check failed (one or more mismatches).")
         sys.exit(2)
 
+# pip install ens
+from ens import ENS
+w3.ens = ENS.from_web3(w3)
+resolved = w3.ens.address(name_or_address) or name_or_address
 if __name__ == "__main__":
     main()
