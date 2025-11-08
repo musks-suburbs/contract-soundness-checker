@@ -1,17 +1,16 @@
-# README.md
 # contract-soundness-checker
 
-Description
+# Description
 A simple CLI tool for checking the "soundness" of smart contracts: it computes the on-chain bytecode keccak hash and compares it with a reference value. Useful for verifying the immutability of L1 contracts related to private L2/zk projects (Aztec, Zama), as well as for general Web3 auditing tasks.
 
-What it does
+# What it does
 1) Connects to an EVM-compatible RPC.  
 2) Retrieves the contract bytecode by address.  
 3) Computes the keccak hash of the bytecode.  
 4) Optionally compares it with the expected hash from a manifest (or provided directly).  
 5) Prints the result and process exit code (0 — all OK, 2 — mismatches found).
 
-Installation
+# Installation
 1) Requires Python 3.9+  
 2) Install dependencies:  
    pip install web3  
@@ -19,7 +18,7 @@ Installation
    either export the environment variable RPC_URL,  
    or specify --rpc when running (works with any EVM RPC: Ethereum, L2, devnet, etc.)
 
-Manifest file
+# Manifest file
 JSON format: { "address": "expected_hash" }.  
 If the expected hash is set to the word “keccak”, the script only prints the computed hash without comparing.  
 Example content:  
@@ -47,7 +46,7 @@ Parameters
 --expected   Expected hash for --address (if not specified — prints only the hash)  
 --timeout    HTTP timeout in seconds (default: 30)
 
-Expected output
+# Expected output
 On successful connection and computation, you’ll see:  
 🔧 Smart Contract Soundness Checker  
 🔗 RPC: <your RPC>  
@@ -59,11 +58,11 @@ If at least one contract doesn’t match:
 🚨 Soundness check failed (one or more mismatches).  
 The process exit code will be 2, which is convenient for CI pipelines.
 
-Integration with Aztec/Zama and private L2s
+# Integration with Aztec/Zama and private L2s
 Many private/zk solutions (e.g., Aztec) deploy critical contracts on L1 (Ethereum or other base networks). Add those addresses to your manifest and store reference hashes as part of your repository. For development networks or custom deployments, simply specify their RPC and addresses.  
 For Zama-based projects (FHE/zk integrations), the same logic applies: verify the immutability of critical on-chain modules.
 
-Practical use cases
+# Practical use cases
 — Integrity control of upgradeable proxies (implementation contracts) in production.  
 — Quick soundness check before release: compare hashes with canonical references from Git.  
 — Monitoring of L1 bridges a
